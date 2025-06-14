@@ -1,11 +1,11 @@
 #!/usr/bin/python3
-
 def print_last_digit(number):
     """
     Prints the last digit of a number and returns its value.
 
     Args:
-        number (int): The integer whose last digit is to be printed and returned.
+        number (int): The integer whose last digit is to be
+                      printed and returned.
 
     Returns:
         int: The value of the last digit of the number.
