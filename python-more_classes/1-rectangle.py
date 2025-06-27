@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
 This module defines the Rectangle class, demonstrating encapsulation
-with private instance attributes and properties for width and height validation.
+with private instance attributes and pros for width and height validation.
 
 It provides a robust way to define rectangles, ensuring their dimensions
 are always valid integers through controlled access via getters and setters.
@@ -22,7 +22,7 @@ class Rectangle:
                        attribute to enforce type and value constraints, and its
                        value is accessed/modified via properties.
         __height (int): The height of the rectangle. It's stored as a private
-                        attribute to enforce type and value constraints, and its
+                        attribute to force type and value constraints, and its
                         value is accessed/modified via properties.
     """
 
