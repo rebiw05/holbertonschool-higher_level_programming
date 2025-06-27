@@ -3,6 +3,7 @@
 This module defines rectangle with width and height.
 """
 
+
 class Rectangle:
     """
     this defines rectangle with atributes
@@ -29,6 +30,7 @@ class Rectangle:
         @property
         def width(self):
             return self.width
+
         @width.setter
         def width(self, value):
             if not isinstance(value, int):
@@ -36,9 +38,11 @@ class Rectangle:
             if value < 0:
                 raise ValueError("width must be >= 0")
             self.width = value
+
         @property
         def height(self):
             return self.height
+
         @height.setter
         def height(self, value):
             if not isinstance(value, int):
