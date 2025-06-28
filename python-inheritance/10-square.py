@@ -29,11 +29,6 @@ class Square(Rectangle):
         """
         self.integer_validator("size", width)
 
+        super().__init__(size, size)
         # Assign the validated values to private instance attributes
         self.__size = size
-
-    def area():
-        """
-        this is area function
-        """
-        return self.__size * self.__size
