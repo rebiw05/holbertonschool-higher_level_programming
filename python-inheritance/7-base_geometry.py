@@ -1,25 +1,18 @@
 #!/usr/bin/python3
 """
-this defines empty class and functions
+This module defines a base geometry class.
 """
 
-
 class BaseGeometry:
-    """
-    this is empty class
-    """
+    """Base class for geometry operations."""
 
     def area(self):
-        """
-        this raise an error
-        """
+        """Raises an exception as area is not implemented."""
         raise Exception("area() is not implemented")
 
     def integer_validator(self, name, value):
-        """
-        this validates the value
-        """
-        if not isinstance(value, int):
+        """Validates if value is a positive integer."""
+        if type(value) is not int:
             raise TypeError(f"{name} must be an integer")
         if value <= 0:
             raise ValueError(f"{name} must be greater than 0")
