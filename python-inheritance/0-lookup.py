@@ -1,4 +1,12 @@
 #!/usr/bin/python3
+"""
+This module lists the class objects.
+
+Attributes:
+    obj (optional): using with class name
+"""
+
+
 def lookup(obj):
     """
     Returns the list of available attributes and methods of an object.
@@ -11,5 +19,5 @@ def lookup(obj):
         A list of strings, where each string is the name of an attribute
         or method available for the given object. The list is typically
         sorted alphabetically.
-        """
+    """
     return dir(obj)
