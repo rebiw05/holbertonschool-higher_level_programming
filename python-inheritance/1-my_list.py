@@ -25,6 +25,5 @@ class MyList(list):
         Assumes all elements in the list are of type int.
 
         """
-        sorted_list = list(self)
-        sorted_list.sort()
+        sorted_list = sorted(self)
         print(sorted_list)
