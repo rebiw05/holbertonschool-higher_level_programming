@@ -1,0 +1,32 @@
+Test case 1: area() not implemented
+>>> bg = BaseGeometry()
+>>> bg.area()
+Traceback (most recent call last):
+...
+Exception: area() is not implemented
+
+Test case 2: integer_validator with valid input
+>>> bg = BaseGeometry()
+>>> bg.integer_validator("width", 10)  # Should pass silently
+>>> bg.integer_validator("height", 89)  # Should pass silently
+
+Test case 3: integer_validator with non-integer input
+>>> bg.integer_validator("name", "John")
+Traceback (most recent call last):
+...
+TypeError: name must be an integer
+
+Test case 4: integer_validator with zero
+>>> bg.integer_validator("age", 0)
+Traceback (most recent call last):
+...
+ValueError: age must be greater than 0
+
+Test case 5: integer_validator with negative number
+>>> bg.integer_validator("distance", -4)
+Traceback (most recent call last):
+...
+ValueError: distance must be greater than 0
+
+Test case 6: name parameter is always string
+>>> bg.integer_validator(123, 10)  # Should pass as name can be any type
