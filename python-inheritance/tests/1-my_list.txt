@@ -14,6 +14,17 @@ Test the MyList class and its print_sorted method.
 >>> print(my_list)
 [1, 4, 2, 3, 5]
 
+Test with negative numbers.
+
+>>> neg_list = MyList()
+>>> neg_list.append(-3)
+>>> neg_list.append(1)
+>>> neg_list.append(-2)
+>>> neg_list.print_sorted()
+[-3, -2, 1]
+>>> print(neg_list)
+[-3, 1, -2]
+
 Test with an empty list.
 
 >>> empty_list = MyList()
