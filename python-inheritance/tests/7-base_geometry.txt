@@ -1,41 +1,45 @@
 Test instantiation
->>> from 7-base_geometry import BaseGeometry
->>> bg = BaseGeometry()  # Should instantiate without errors
+>>> from base_geometry import BaseGeometry
+>>> bg = BaseGeometry()
 
-Test area() method
+Test area()
 >>> bg.area()
 Traceback (most recent call last):
 ...
 Exception: area() is not implemented
 
-Test integer_validator with valid input
->>> bg.integer_validator("positive", 1)  # Should pass silently
->>> bg.integer_validator("large_value", 1000)  # Should pass silently
+Test valid integers
+>>> bg.integer_validator("age", 1)
+>>> bg.integer_validator("age", 100)
 
-Test integer_validator with non-integer strings
->>> bg.integer_validator("name", "John")
+Test invalid types
+>>> bg.integer_validator("age", "4")
 Traceback (most recent call last):
 ...
-TypeError: name must be an integer
+TypeError: age must be an integer
+>>> bg.integer_validator("age", 13.5)
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
+>>> bg.integer_validator("age", (4,))
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
+>>> bg.integer_validator("age", [3])
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
+>>> bg.integer_validator("age", True)
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
 
-Test integer_validator with zero
+Test invalid values
 >>> bg.integer_validator("age", 0)
 Traceback (most recent call last):
 ...
 ValueError: age must be greater than 0
-
-Test integer_validator with negative numbers
->>> bg.integer_validator("distance", -4)
+>>> bg.integer_validator("age", -4)
 Traceback (most recent call last):
 ...
-ValueError: distance must be greater than 0
-
-Test integer_validator with floats
->>> bg.integer_validator("height", 13.5)
-Traceback (most recent call last):
-...
-TypeError: height must be an integer
-
-Test name parameter edge cases
->>> bg.integer_validator("", 1)  # Empty string name (should pass)
->>> bg.integer_validator(123, 1)  # Non-string name (should pass per spec)
+ValueError: age must be greater than 0
