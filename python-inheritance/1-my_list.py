@@ -1,4 +1,11 @@
 #!/usr/bin/python3
+"""
+This module demonstrate mylist class from list.
+
+mylist inherit list properties
+"""
+
+
 class MyList(list):
     """
     A class MyList that inherits from the built-in list class.
