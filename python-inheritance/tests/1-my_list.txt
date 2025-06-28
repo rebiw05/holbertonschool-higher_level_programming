@@ -1,18 +1,60 @@
-$ cat 1-main.py
 #!/usr/bin/python3
+"""
+This module tests the functionality of the MyList class.
+"""
+
+# Import the MyList class
 MyList = __import__('1-my_list').MyList
 
+# Create an instance of the MyList class
 my_list = MyList()
+
+# Append elements to the list
 my_list.append(1)
 my_list.append(4)
 my_list.append(2)
 my_list.append(3)
 my_list.append(5)
-print(my_list)
-my_list.print_sorted()
-print(my_list)
 
-$ ./1-main.py
-[1, 4, 2, 3, 5]
-[1, 2, 3, 4, 5]
-[1, 4, 2, 3, 5]
+# Print the original list
+print("Original list:", my_list)
+
+# Call the print_sorted method to print the sorted list
+print("Sorted list (with print_sorted):", end=" ")
+my_list.print_sorted()
+
+# Print the original list again to show it hasn't changed after print_sorted call
+print("Original list after print_sorted:", my_list)
+
+print("\n--- Additional Test Scenarios ---")
+
+# Test with an empty list
+empty_list = MyList()
+print("Empty list:", empty_list)
+print("Empty list (sorted):", end=" ")
+empty_list.print_sorted()
+
+# Test with a single-element list
+single_element_list = MyList()
+single_element_list.append(10)
+print("Single-element list:", single_element_list)
+print("Single-element list (sorted):", end=" ")
+single_element_list.print_sorted()
+
+# Test with an already sorted list
+already_sorted_list = MyList()
+already_sorted_list.append(1)
+already_sorted_list.append(2)
+already_sorted_list.append(3)
+print("Already sorted list:", already_sorted_list)
+print("Already sorted list (sorted):", end=" ")
+already_sorted_list.print_sorted()
+
+# Test with a reverse-sorted list
+reverse_sorted_list = MyList()
+reverse_sorted_list.append(5)
+reverse_sorted_list.append(4)
+reverse_sorted_list.append(3)
+print("Reverse sorted list:", reverse_sorted_list)
+print("Reverse sorted list (sorted):", end=" ")
+reverse_sorted_list.print_sorted()
