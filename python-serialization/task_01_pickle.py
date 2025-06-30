@@ -47,8 +47,11 @@ class CustomObject:
             filename (str): The name of the file
             saving the serialized object to.
         """
-        with open(filename, "wb") as file:
-            pickle.dump(self, file)
+        try:
+            with open(filename, "wb") as file:
+                pickle.dump(self, file)
+        except Exception as e:
+            print(f"serialization has failed {e}")
 
     @classmethod
     def deserialize(cls, filename: str):
@@ -62,5 +65,9 @@ class CustomObject:
             filename (str): The name of the file
             to load the serialized object from.
         """
-        with open(filename, "rb") as file:
-            return pickle.load(file)
+        try:
+            with open(filename, "rb") as file:
+                return pickle.load(file)
+        except Exception as e:
+            print(f"deserialization has failed {e}")
+            return None
