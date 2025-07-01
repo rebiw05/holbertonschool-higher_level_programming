@@ -1,44 +1,65 @@
-#!/usr/bin/python3
-"""
-this module serialize using xml
-"""
-
-
+#!/usr/bin/env python3
 import xml.etree.ElementTree as ET
-"""
-this is library
-"""
+import os
 
-
-import json
-"""
-this is library
-"""
 
 def serialize_to_xml(dictionary, filename):
     """
-    this is function
+    Serializes a Python dictionary into XML format and saves it to a file.
+
+    Args:
+        dictionary (dict): The Python dictionary to serialize.
+        filename (str): The name of the file to save the XML data to.
     """
+    # Create the root element for the XML document
     root = ET.Element("data")
-    name = ET.SubElement(root, "name")
-    name.text = sample_dict["name"]
-    age = ET.SubElement(root, "age")
-    age.text = sample_dict["age"]
-    city = ET.SubElement(root, "city")
-    city.text = sample_dict["city"]
+
+    # Iterate through the dictionary items
+    for key, value in dictionary.items():
+        # Create a child element for each key-value pair
+        # The key becomes the tag name, and the value becomes the text content
+        child = ET.SubElement(root, key)
+
+    # Create an ElementTree object from the root element
     tree = ET.ElementTree(root)
-    tree.write("data.xml", encoding="utf-8", xml_declaration=True)
+
+    # Indent the XML for better readability (pretty-printing)
+    # This function is available from Python 3.9+
+    ET.indent(tree, space="    ")
+
+    # Write the XML tree to the specified file
+    tree.write(filename, encoding="utf-8", xml_declaration=True)
+
 
 def deserialize_from_xml(filename):
     """
-    this is function
+    Reads XML data from a file and deserializes it into a Python dictionary.
+
+    Args:
+        filename (str): The name of the XML file to read from.
+
+    Returns:
+        dict: The deserialized Python dictionary.
+              Returns an empty dictionary if the file is not found or empty.
     """
-    tree = ET.parse("data.xml")
-    root = tree.getroot()
-    for element in root:
-        if element.tag == "name":
-            sample_dict_new["name"] = element.text
-        elif element.tag == "age":
-            sample_dict_new["age"] = int(element.text)
-        elif element.tag == "city":
-            sample_dict_new["city"] = element.text
+    deserialized_dict = {}
+    try:
+        # Parse the XML file to get the ElementTree object
+        tree = ET.parse(filename)
+        # Get the root element of the XML tree
+        root = tree.getroot()
+
+        # Iterate through the child elements of the root
+        for child in root:
+            # The tag of the child element becomes the key in the dictionary
+            # The text content of the child element becomes the value
+            deserialized_dict[child.tag] = child.text
+
+    except FileNotFoundError:
+        print(f"Error: The file '{filename}' was not found.")
+    except ET.ParseError as e:
+        print(f"Error parsing XML file '{filename}': {e}")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+
+    return deserialized_dict
