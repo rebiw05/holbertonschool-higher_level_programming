@@ -2,7 +2,6 @@
 import xml.etree.ElementTree as ET
 import os
 
-
 def serialize_to_xml(dictionary, filename):
     """
     Serializes a Python dictionary into XML format and saves it to a file.
@@ -19,6 +18,7 @@ def serialize_to_xml(dictionary, filename):
         # Create a child element for each key-value pair
         # The key becomes the tag name, and the value becomes the text content
         child = ET.SubElement(root, key)
+        child.text = str(value)  # Convert value to string before assigning as text
 
     # Create an ElementTree object from the root element
     tree = ET.ElementTree(root)
@@ -28,8 +28,8 @@ def serialize_to_xml(dictionary, filename):
     ET.indent(tree, space="    ")
 
     # Write the XML tree to the specified file
+    # xml_declaration=True adds the <?xml version='1.0' encoding='utf-8'?> header
     tree.write(filename, encoding="utf-8", xml_declaration=True)
-
 
 def deserialize_from_xml(filename):
     """
@@ -63,3 +63,23 @@ def deserialize_from_xml(filename):
         print(f"An unexpected error occurred: {e}")
 
     return deserialized_dict
+
+# --- Testing Your Code ---
+# This block will only run when the script is executed directly
+if __name__ == "__main__":
+    sample_dict = {
+        'name': 'John',
+        'age': '28',  # Stored as string as per example output
+        'city': 'New York'
+    }
+
+    xml_file = "data.xml"
+
+    # Test serialization
+    serialize_to_xml(sample_dict, xml_file)
+    print(f"Dictionary serialized to {xml_file}")
+
+    # Test deserialization
+    deserialized_data = deserialize_from_xml(xml_file)
+    print("\nDeserialized Data:")
+    print(deserialized_data)
