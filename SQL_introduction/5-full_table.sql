@@ -1,9 +1,2 @@
 -- describing the table
-SELECT
-    COLUMN_NAME,
-    COLUMN_TYPE,
-    IS_NULLABLE
-FROM
-    INFORMATION_SCHEMA.COLUMNS
-WHERE
-    TABLE_NAME = 'first_table';
+SHOW CREATE TABLE first_table;
