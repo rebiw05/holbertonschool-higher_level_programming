@@ -15,8 +15,8 @@ if __name__ == "__main__":
     token = sys.argv[2]
     url = "https://github.com/rebiw05"
     response = requests.get(url, auth=(username, token))
-    try:
-        json_data = response.json()
-        print(json_data.get("id"))
-    except ValueError:
+    if response.status_code == 200:
+        user_data = response.json()
+        print(user_data.get("id"))
+    else:
         print("None")
