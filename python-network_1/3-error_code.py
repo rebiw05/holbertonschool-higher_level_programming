@@ -12,15 +12,14 @@ import urllib.error
 this is for using url
 """
 
-if __name__=="__main__":
+if __name__ == "__main__":
     url = sys.argv[1]
-    headers = {
-        'cfclearance': 'true'
-    }
-    req = urllib.request.Request(url, headers=headers)
+
+    req = urllib.request.Request(url)
+
     try:
         with urllib.request.urlopen(req) as response:
             print(response.read().decode('utf-8'))
+
     except urllib.error.HTTPError as e:
         print("Error code:", e.code)
-        print(e.read().decode('utf-8'))
