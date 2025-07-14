@@ -4,6 +4,7 @@ this is module
 """
 
 
+import json
 import requests
 import csv
 """
@@ -12,13 +13,13 @@ this is for using requests
 
 
 api_url = "https://jsonplaceholder.typicode.com/"
-response = requests.get(api_url)
 
 
 def fetch_and_print_posts():
     """
     this is function
     """
+    response = requests.get(api_url)
     if response.status_code == 200:
         posts = response.json()
         for i, post in posts:
@@ -31,6 +32,7 @@ def fetch_and_save_posts():
     """
     this is function
     """
+    response = requests.get(api_url)
     if response.status_code == 200:
         csv_file_name = "posts_data.csv"
         with open(csv_file_name, 'w', newline='', encoding='utf-8') as file:
