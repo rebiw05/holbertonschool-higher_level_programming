@@ -38,7 +38,7 @@ def fetch_and_save_posts():
 
             csv_file_name = "posts.csv"
             # Define CSV column headers based on common post keys
-            fieldnames = ['id', 'title', 'body', 'userId'] 
+            fieldnames = ['id', 'title', 'body'] 
 
             with open(csv_file_name, 'w', newline='', encoding='utf-8') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
