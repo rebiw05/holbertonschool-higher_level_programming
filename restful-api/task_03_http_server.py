@@ -1,53 +1,50 @@
+#!/usr/bin/env python3
 import http.server
 import socketserver
 import json
 
-# Create a subclass of http.server.BaseHTTPRequestHandler
-class MyCustomHandler(http.server.BaseHTTPRequestHandler):
-    # The do_GET method handles all GET requests
+class SimpleAPIHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
-        # Get the requested URL path
-        requested_path = self.path
-
-        # Handle different endpoints
-        if requested_path == "/":
-            # For the root endpoint, send a simple text response
-            self.send_response(200)  # HTTP Status: 200 OK
-            self.send_header("Content-type", "text/plain") # Content type: plain text
+        # Check the requested endpoint and respond accordingly.
+        if self.path == '/':
+            # Root endpoint: return a simple text greeting.
+            self.send_response(200)
+            self.send_header('Content-type', 'text/plain')
             self.end_headers()
-            response_message = "Hello, this is a simple API!"
-            self.wfile.write(response_message.encode('utf-8'))
-            print(f"GET request handled: {requested_path}")
-
-        elif requested_path == "/data":
-            # For the '/data' endpoint, serve JSON data
+            message = "Hello, this is a simple API!"
+            self.wfile.write(message.encode())
+        elif self.path == '/data':
+            # /data endpoint: send a JSON response.
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
             data = {"name": "John", "age": 30, "city": "New York"}
-            # Convert Python dictionary to a JSON string
-            json_response = json.dumps(data, ensure_ascii=False, indent=4)
-
-            self.send_response(200)  # HTTP Status: 200 OK
-            self.send_header("Content-type", "application/json") # Content type: JSON
-            # It's good practice to send Content-Length for accurate transfer
-            self.send_header("Content-Length", str(len(json_response.encode('utf-8'))))
+            self.wfile.write(json.dumps(data).encode())
+        elif self.path == '/status':
+            # /status endpoint: return API status.
+            self.send_response(200)
+            self.send_header('Content-type', 'text/plain')
             self.end_headers()
-            self.wfile.write(json_response.encode('utf-8'))
-            print(f"JSON data served for: {requested_path}")
-
-        elif requested_path == "/status":
-            # For the '/status' endpoint, return a simple "OK"
-            self.send_response(200)  # HTTP Status: 200 OK
-            self.send_header("Content-type", "text/plain")
+            self.wfile.write(b'OK')
+        elif self.path == '/info':
+            # /info endpoint: return API information.
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
             self.end_headers()
-            response_message = "OK"
-            self.wfile.write(response_message.encode('utf-8'))
-            print(f"Status request handled: {requested_path}")
-
+            info = {
+                "version": "1.0",
+                "description": "A simple API built with http.server"
+            }
+            self.wfile.write(json.dumps(info).encode())
         else:
-            # Handle undefined endpoints with a 404 Not Found error
-            status_code = 404
-            error_message = "Not Found"
-            # Crucially, we manually craft the response body to match test expectations
-            response_body = "The requested endpoint does not exist."
+            # For all undefined endpoints, return 404 Not Found.
+            self.send_error(404, "Endpoint not found")
 
-            self.send_response(status_code)
-            self.send_header("Content-type", "text/plain") # Error messages
+def run(server_class=http.server.HTTPServer, handler_class=SimpleAPIHandler, port=8000):
+    server_address = ('', port)  # Bind to all interfaces.
+    httpd = server_class(server_address, handler_class)
+    print("Starting http server on port", port)
+    httpd.serve_forever()
+
+if __name__ == '__main__':
+    run()
