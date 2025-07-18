@@ -19,11 +19,11 @@ def items():
     return render_template('items.html')
 
 file_name = f"items.json"
-        try:
-            with open(file_name, 'r') as f:
-                content = json.load(f)
-                print(content)
-        except Exception as e:
-            print(f"Failed to write {file_name}: {e}")
+    try:
+        with open(file_name, 'r') as f:
+            content = json.load(f)
+            print(content)
+    except Exception as e:
+        print(f"Failed to write {file_name}: {e}")
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
